@@ -48,6 +48,8 @@ public class UserAccount {
 	public void setSavingsBalance(float savingsBalance) {
 		this.savingsBalance = savingsBalance;
 	}
+	
+	// FACILITATES TRANSFERS WITHIN ACCOUNT 
 
 	public void moveTo(String accountType, float amount) {
 		if (accountType.equalsIgnoreCase("Savings")) {
@@ -62,7 +64,8 @@ public class UserAccount {
 				+ this.getChequingsBalance() + "\nSavings Balance: $" + this.getSavingsBalance()
 				+ "\nThank you for banking with us.\n");
 	}
-
+	
+	// FACILITATES TRANSFERS TO OTHER USERS 
 	
 	public void transfer(String accountType, float amount, UserAccount receiver) {
 		if (accountType.equals("Chequings")) {

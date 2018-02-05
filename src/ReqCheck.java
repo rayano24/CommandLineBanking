@@ -1,8 +1,10 @@
 // Requirements Checker for password
-public class ReqCheck  {
+public class ReqCheck extends UserAccount  {
 
-
-
+	public ReqCheck(String email, String password, float chequingsBalance, float savingsBalance) {
+		super(email, password, chequingsBalance, savingsBalance);
+		// TODO Auto-generated constructor stub
+	}
 
 	public static boolean passwordAuthenticator(String password) {
 		if (password.length() < 6) {
@@ -11,7 +13,7 @@ public class ReqCheck  {
 			return false;
 		} else if (password.equals(password.toUpperCase())) {
 			return false;
-		} else if (password.matches("[A-Za-z0-9 ]*")) { // check for special characters
+		} else if (password.matches("[A-Za-z0-9 ]*")) { 
 			return false;
 		}
 		return true;
