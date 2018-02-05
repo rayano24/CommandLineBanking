@@ -1,23 +1,29 @@
-// Requirements Checker for PIN
-public class ReqCheck extends HolderAccount {
-	
-	//Provided by xpa1492, stack overflow
-	 public static boolean hasDistinctDigits(int number) {
-	     int numMask = 0;
-	     int numDigits = (int) Math.ceil(Math.log10(number+1));
-	     for (int digitIdx = 0; digitIdx < numDigits; digitIdx++) {
-	         int curDigit = (int)(number / Math.pow(10,digitIdx)) % 10;
-	         int digitMask = (int)Math.pow(2, curDigit);             
-	         if ((numMask & digitMask) > 0) return false;
-	         numMask = numMask | digitMask;
-	     }
-	     return true;
-	 }
-	 
-	 public static void generateHelp() { 
-		 System.out.println("Generic Bank of Canada PIN Guidelines");
-		 System.out.println("1. Please use only unique digits in your PIN. Do not repeat digits.");
-		 System.out.println("2. Do not use more or less than four digits in your pin.");
-		 
-	 }
+// Requirements Checker for password
+public class ReqCheck  {
+
+
+
+
+	public static boolean passwordAuthenticator(String password) {
+		if (password.length() < 6) {
+			return false;
+		} else if (password.equals(password.toLowerCase())) {
+			return false;
+		} else if (password.equals(password.toUpperCase())) {
+			return false;
+		} else if (password.matches("[A-Za-z0-9 ]*")) { // check for special characters
+			return false;
+		}
+		return true;
+	}
+
+	public static void generateHelp() {
+		System.out.println("========Generic Bank of Canada password guidelines========");
+		System.out.println("At GBC, your security is our priority./n" + "It is important to select a password that"
+				+ " cannot easily be guessed by people who may attempt to infiltrate your account./n");
+		System.out.println("1. Your password must have a minimum of six characters.");
+		System.out.println("2. Your password must contain at least one upper case and lower case letter.");
+		System.out.println("3. Your password must contain a special character such as @!# etc../n");
+
+	}
 }
