@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class RegistrationProcess extends ReqCheck {
-	
+
 	static UserAccount primary = new UserAccount(null, null, 100, 0);
 
-	public RegistrationProcess(String email, String password, float chequingsBalance, float savingsBalance) {
+	protected RegistrationProcess(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
 		// TODO Auto-generated constructor stub
 	}
@@ -16,8 +16,8 @@ public class RegistrationProcess extends ReqCheck {
 		System.out.println("2. Sign Up");
 
 		@SuppressWarnings("resource")
-		Scanner scannerinput = new Scanner(System.in);
-		String initialInput = scannerinput.next();
+		Scanner scannerInput = new Scanner(System.in);
+		String initialInput = scannerInput.next();
 
 		// SIGN UP PROCESS INITITATES
 		if (initialInput.equals("2")) {
@@ -29,7 +29,7 @@ public class RegistrationProcess extends ReqCheck {
 			System.out.println("For guidelines on selecting a password, please type help onto the console.\n"
 					+ "Alternatively, press any other key continue to registration.");
 
-			String passwordInfo = scannerinput.next();
+			String passwordInfo = scannerInput.next();
 
 			if (passwordInfo.equalsIgnoreCase("help")) {
 				generateHelp();
@@ -40,12 +40,12 @@ public class RegistrationProcess extends ReqCheck {
 
 			System.out.println("Please enter the email associated with your account and a desired password.");
 			System.out.print("Email Address: ");
-			String emailAddress = scannerinput.next();
+			String emailAddress = scannerInput.next();
 			String userPassword = null;
 			System.out.print("Password: ");
 
 			try {
-				userPassword = scannerinput.next(); // RENAME !, TRY CATCH MIGHT NOT BE NECESSARY ANYMORE
+				userPassword = scannerInput.next(); // RENAME !, TRY CATCH MIGHT NOT BE NECESSARY ANYMORE
 			} catch (Exception e) {
 				System.out.println("Your pin is not valid. You will be kicked out of the session.");
 			}

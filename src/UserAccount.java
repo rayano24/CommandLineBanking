@@ -1,6 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+
 public class UserAccount {
 
 	static String timeStamp = new SimpleDateFormat("dd/MM/yyyy - H:mm").format(Calendar.getInstance().getTime());
@@ -9,56 +10,56 @@ public class UserAccount {
 	private float chequingsBalance;
 	private float savingsBalance;
 
-	public UserAccount(String email, String password, float chequingsBalance, float savingsBalance) {
+	protected UserAccount(String email, String password, float chequingsBalance, float savingsBalance) {
 		super();
 		this.email = email;
 		this.password = password;
 		this.chequingsBalance = chequingsBalance;
 		this.savingsBalance = savingsBalance;
 	}
-
-	public String getEmail() {
+	
+	protected String getEmail() {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	protected void setEmail(String email) {
 		this.email = email;
 	}
 
-	public String getPassword() {
+	protected String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
+	protected void setPassword(String password) {
 		this.password = password;
 	}
 
-	public float getChequingsBalance() {
+	protected float getChequingsBalance() {
 		return chequingsBalance;
 	}
 
-	public void setChequingsBalance(float chequingsBalance) {
+	protected void setChequingsBalance(float chequingsBalance) {
 		this.chequingsBalance = chequingsBalance;
 	}
 
-	public float getSavingsBalance() {
+	protected float getSavingsBalance() {
 		return savingsBalance;
 	}
 
-	public void setSavingsBalance(float savingsBalance) {
+	protected void setSavingsBalance(float savingsBalance) {
 		this.savingsBalance = savingsBalance;
 	}
 	
 	// FACILITATES TRANSFERS WITHIN ACCOUNT 
 
-	public void moveTo(String accountType, float amount) {
+	protected void moveTo(String accountType, float amount) {
 		if (accountType.equalsIgnoreCase("Savings")) {
-			this.setSavingsBalance(this.getChequingsBalance() + amount);
-			this.setChequingsBalance(this.getSavingsBalance() - amount);
+			this.setSavingsBalance(this.getSavingsBalance() + amount);
+			this.setChequingsBalance(this.getChequingsBalance() - amount);
 		}
 		else if(accountType.equalsIgnoreCase("Chequings")) {
-			this.setChequingsBalance(this.getSavingsBalance() + amount);
-			this.setSavingsBalance(this.getChequingsBalance() - amount);
+			this.setChequingsBalance(this.getChequingsBalance() + amount);
+			this.setSavingsBalance(this.getSavingsBalance() - amount);
 		}
 		System.out.print(timeStamp + "\nTransaction Details: \nChequings Balance: $"
 				+ this.getChequingsBalance() + "\nSavings Balance: $" + this.getSavingsBalance()
@@ -67,13 +68,13 @@ public class UserAccount {
 	
 	// FACILITATES TRANSFERS TO OTHER USERS 
 	
-	public void transfer(String accountType, float amount, UserAccount receiver) {
+	protected void transfer(String accountType, float amount, UserAccount receiver) {
 		if (accountType.equals("Chequings")) {
 			this.setChequingsBalance(this.getChequingsBalance() - amount);
 			receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
 
 		} else if (accountType.equals("Savings")) {
-			this.setChequingsBalance(this.getSavingsBalance() - amount);
+			this.setSavingsBalance(this.getSavingsBalance() - amount);
 			receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
 
 		}

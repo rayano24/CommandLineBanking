@@ -6,7 +6,7 @@ public class ReqCheck extends UserAccount  {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static boolean passwordAuthenticator(String password) {
+	protected static boolean passwordAuthenticator(String password) {
 		if (password.length() < 6) {
 			return false;
 		} else if (password.equals(password.toLowerCase())) {
