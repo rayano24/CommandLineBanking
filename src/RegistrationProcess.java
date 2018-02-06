@@ -1,10 +1,8 @@
 import java.util.Scanner;
 
-public class RegistrationProcess extends ReqCheck {
+public class RegistrationProcess extends Cipher {
 
-	static UserAccount primary = new UserAccount(null, null, 100, 0);
-
-	protected RegistrationProcess(String email, String password, float chequingsBalance, float savingsBalance) {
+	public RegistrationProcess(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
 		// TODO Auto-generated constructor stub
 	}
@@ -37,38 +35,22 @@ public class RegistrationProcess extends ReqCheck {
 			}
 
 			// REGISTRATION
-
 			System.out.println("Please enter the email associated with your account and a desired password.");
 			System.out.print("Email Address: ");
 			String emailAddress = scannerInput.next();
-			String userPassword = null;
 			System.out.print("Password: ");
-
-			try {
-				userPassword = scannerInput.next(); // RENAME !, TRY CATCH MIGHT NOT BE NECESSARY ANYMORE
-			} catch (Exception e) {
-				System.out.println("Your pin is not valid. You will be kicked out of the session.");
-			}
-
-			if (passwordAuthenticator(userPassword) == false) {
-				System.out.println("The password you select is invalid");
-				System.exit(0);
-
-			}
+			String userPassword = scannerInput.next();
 
 			// STARTING BALANCE + USER ACCOUNTS
-			primary.setPassword(userPassword);
-			primary.setEmail(emailAddress);
-
-			// AccountGenerator(emailAddress, pinNum);
-			// int pinNumber = hm.get(emailAddress);
-
-			System.out.println(
-					"Thank you for signing up for CommandLineBanking. Your chequings account has been credited with $100. Be sure to keep your new credentials in a safe place.");
-
-		} else {
-
+			if (passwordAuthenticator(userPassword) == true) {
+				createAccount(emailAddress, userPassword);
+				System.out.println("Thank you for signing up for CommandLineBanking. Your chequings account has been credited with $100. Be sure to keep your new credentials in a safe place.");
+			} else {
+				System.out.println("You have entered an invalid password");
+				System.exit(1);
+			}
 		}
+
 	}
 
 }

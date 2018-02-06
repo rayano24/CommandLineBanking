@@ -1,9 +1,11 @@
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 
 
 public class UserAccount {
-
+	
+    static HashMap<String, UserAccount> accountsHM = new HashMap<String, UserAccount>();
 	static String timeStamp = new SimpleDateFormat("dd/MM/yyyy - H:mm").format(Calendar.getInstance().getTime());
 	private String email;
 	private String password;
@@ -16,6 +18,10 @@ public class UserAccount {
 		this.password = password;
 		this.chequingsBalance = chequingsBalance;
 		this.savingsBalance = savingsBalance;
+	}
+	
+	protected static void createAccount(String email, String password) {
+		accountsHM.put(email, new UserAccount(email, password, 0, 100));
 	}
 	
 	protected String getEmail() {
