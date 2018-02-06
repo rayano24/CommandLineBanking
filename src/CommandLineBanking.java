@@ -201,8 +201,7 @@ public class CommandLineBanking extends RegistrationProcess {
 
 			else if (choice.equalsIgnoreCase("Sign Out") || choice.equals("3")) {
 
-
-				// Implementation to add; Sign out option. 
+				// Implementation to add; Sign out option.
 
 			}
 

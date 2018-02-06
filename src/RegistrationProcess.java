@@ -44,7 +44,8 @@ public class RegistrationProcess extends Cipher {
 			// STARTING BALANCE + USER ACCOUNTS
 			if (passwordAuthenticator(userPassword) == true) {
 				createAccount(emailAddress, userPassword);
-				System.out.println("Thank you for signing up for CommandLineBanking. Your chequings account has been credited with $100. Be sure to keep your new credentials in a safe place.");
+				System.out.println(
+						"Thank you for signing up for CommandLineBanking. Your chequings account has been credited with $100. Be sure to keep your new credentials in a safe place.");
 			} else {
 				System.out.println("You have entered an invalid password");
 				System.exit(1);

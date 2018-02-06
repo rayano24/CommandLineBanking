@@ -2,10 +2,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-
 public class UserAccount {
-	
-    static HashMap<String, UserAccount> accountsHM = new HashMap<String, UserAccount>();
+
+	static HashMap<String, UserAccount> accountsHM = new HashMap<String, UserAccount>();
 	static String timeStamp = new SimpleDateFormat("dd/MM/yyyy - H:mm").format(Calendar.getInstance().getTime());
 	private String email;
 	private String password;
@@ -19,11 +18,11 @@ public class UserAccount {
 		this.chequingsBalance = chequingsBalance;
 		this.savingsBalance = savingsBalance;
 	}
-	
+
 	protected static void createAccount(String email, String password) {
 		accountsHM.put(email, new UserAccount(email, password, 0, 100));
 	}
-	
+
 	protected String getEmail() {
 		return email;
 	}
@@ -55,25 +54,23 @@ public class UserAccount {
 	protected void setSavingsBalance(float savingsBalance) {
 		this.savingsBalance = savingsBalance;
 	}
-	
-	// FACILITATES TRANSFERS WITHIN ACCOUNT 
+
+	// FACILITATES TRANSFERS WITHIN ACCOUNT
 
 	protected void moveTo(String accountType, float amount) {
 		if (accountType.equalsIgnoreCase("Savings")) {
 			this.setSavingsBalance(this.getSavingsBalance() + amount);
 			this.setChequingsBalance(this.getChequingsBalance() - amount);
-		}
-		else if(accountType.equalsIgnoreCase("Chequings")) {
+		} else if (accountType.equalsIgnoreCase("Chequings")) {
 			this.setChequingsBalance(this.getChequingsBalance() + amount);
 			this.setSavingsBalance(this.getSavingsBalance() - amount);
 		}
-		System.out.print(timeStamp + "\nTransaction Details: \nChequings Balance: $"
-				+ this.getChequingsBalance() + "\nSavings Balance: $" + this.getSavingsBalance()
-				+ "\nThank you for banking with us.\n");
+		System.out.print(timeStamp + "\nTransaction Details: \nChequings Balance: $" + this.getChequingsBalance()
+				+ "\nSavings Balance: $" + this.getSavingsBalance() + "\nThank you for banking with us.\n");
 	}
-	
-	// FACILITATES TRANSFERS TO OTHER USERS 
-	
+
+	// FACILITATES TRANSFERS TO OTHER USERS
+
 	protected void transfer(String accountType, float amount, UserAccount receiver) {
 		if (accountType.equals("Chequings")) {
 			this.setChequingsBalance(this.getChequingsBalance() - amount);
@@ -84,7 +81,6 @@ public class UserAccount {
 			receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
 
 		}
-		
 
 	}
 
