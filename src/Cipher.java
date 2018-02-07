@@ -25,9 +25,8 @@ public class Cipher extends ReqCheck {
 		}
 		String temp = new String(caesarArr);
 		accountsHM.get(email).setPassword(temp);
-
 	}
-
+	
 	protected void decrypt(String email, int key) {
 		key = -12;
 		encrypt(email, key);

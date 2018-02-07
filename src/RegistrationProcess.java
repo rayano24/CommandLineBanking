@@ -7,9 +7,9 @@ public class RegistrationProcess extends Cipher {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void RegistrationPrompt() {
+	protected static void RegistrationPrompt() {
 
-		System.out.println("Welcome to the Generic Bank of Canada CommandLineBanking™ portal");
+		System.out.println("Welcome to the Generic Bank of Canadia CommandLineBanking™ portal");
 		System.out.println("1. Sign In");
 		System.out.println("2. Sign Up");
 

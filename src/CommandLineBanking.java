@@ -15,6 +15,7 @@ public class CommandLineBanking extends RegistrationProcess {
 		// MAIN BANKING FUNCTIONS //
 		// ======================//
 
+		@SuppressWarnings("resource")
 		Scanner scannerInput = new Scanner(System.in);
 		System.out.println("Welcome to CommandLineBanking™");
 		System.out.print("Please enter your commandLineBanking email: ");
@@ -201,12 +202,10 @@ public class CommandLineBanking extends RegistrationProcess {
 
 			else if (choice.equalsIgnoreCase("Sign Out") || choice.equals("3")) {
 
-				// Implementation to add; Sign out option.
-
 			}
 
 			else {
-				System.out.println("Invalid input. You will be kicked out of the session.");
+				System.out.println("Invalid input.");
 				continue;
 			}
 		}
