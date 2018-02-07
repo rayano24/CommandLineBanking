@@ -19,13 +19,4 @@ public class ReqCheck extends UserAccount  {
 		return true;
 	}
 
-	public static void generateHelp() {
-		System.out.println("========Generic Bank of Canadia password guidelines========");
-		System.out.println("At GBC, your security is our priority.\n" + "It is important to select a password that"
-				+ " cannot easily be guessed by people who may attempt to infiltrate your account.\n");
-		System.out.println("1. Your password must have a minimum of six characters.");
-		System.out.println("2. Your password must contain at least one upper case and lower case letter.");
-		System.out.println("3. Your password must contain a special character such as @!# etc..\n");
-
-	}
 }

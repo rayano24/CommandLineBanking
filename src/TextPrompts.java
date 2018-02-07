@@ -1,5 +1,5 @@
 
-public class TextPrompts extends ReqCheck {
+public class TextPrompts extends Cipher {
 
 	public TextPrompts(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);

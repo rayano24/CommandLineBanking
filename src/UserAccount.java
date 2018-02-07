@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class UserAccount {
 
+	// Multiple Users to be stored in hashmap
 	static HashMap<String, UserAccount> accountsHM = new HashMap<String, UserAccount>();
 	static String timeStamp = new SimpleDateFormat("dd/MM/yyyy - H:mm").format(Calendar.getInstance().getTime());
 	private String email;
@@ -55,7 +56,7 @@ public class UserAccount {
 		this.savingsBalance = savingsBalance;
 	}
 
-	// FACILITATES TRANSFERS WITHIN ACCOUNT
+	// Facilitates transfers within account
 
 	protected void moveTo(String accountType, float amount) {
 		if (accountType.equalsIgnoreCase("Savings")) {
@@ -69,20 +70,22 @@ public class UserAccount {
 				+ "\nSavings Balance: $" + this.getSavingsBalance() + "\nThank you for banking with us.\n");
 	}
 
-	// FACILITATES TRANSFERS TO OTHER USERS
+	// Facilitates transfers to other users
 
 	protected void transfer(String accountType, float amount, UserAccount receiver) {
 		if (accountType.equals("Chequings")) {
 			this.setChequingsBalance(this.getChequingsBalance() - amount);
-			if (receiver == null) {
-			} else {
+			if (receiver == null) { // For email transfers since the user is not a GBC client
+			} else 
+			{
 				receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
 			}
 
 		} else if (accountType.equals("Savings")) {
 			this.setSavingsBalance(this.getSavingsBalance() - amount);
-			if (receiver == null) {
-			} else {
+			if (receiver == null) { // For email transfers since the user is not a GBC client
+			} else 
+			{
 				receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
 			}
 

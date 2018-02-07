@@ -11,25 +11,27 @@ public class CommandLineBanking extends RegistrationProcess {
 
 		while (true) {
 
-			RegistrationPrompt();
+			RegistrationPrompt(); // Sign in + Sign Out Option 
 
 			@SuppressWarnings("resource")
 			Scanner scannerInput = new Scanner(System.in);
-			System.out.println("Welcome to CommandLineBanking™");
-			System.out.print("Please enter your commandLineBanking email: ");
+			System.out.println("Welcome to CommandLineBanking");
+			System.out.print("Email: ");
 			String email = scannerInput.next();
-			System.out.print("Please enter your commandLineBanking password: ");
+			System.out.print("Password: ");
 			String password = scannerInput.next();
 
-			accountsHM.get(email).getEmail();
-
-			if ((accountsHM.get(email).getPassword().equals(password)
-					&& email.equalsIgnoreCase((accountsHM.get(email)).getEmail()) == false)) {
-				System.out.println("You have entered an invalid email or password.");
-				System.exit(0);
+			// Processing user input
+			try {
+			if ((accountsHM.get(email).getPassword().equals(password) && email.equalsIgnoreCase((accountsHM.get(email)).getEmail()) == false)) {
+				System.out.println("You have entered an invalid password.");
+				continue;
+			}  } catch (Exception e) {
+				System.out.println("The account does not exist.");
+				continue;
 			}
 
-			// OPTIONS
+			// Banking Options
 			while (true) {
 
 				System.out.println("Please select an option:");
@@ -39,7 +41,7 @@ public class CommandLineBanking extends RegistrationProcess {
 
 				String choice = scannerInput.next();
 
-				// BALANCE
+				// Balance 
 
 				if (choice.equalsIgnoreCase("Balance") || choice.equals("1")) {
 
@@ -67,7 +69,7 @@ public class CommandLineBanking extends RegistrationProcess {
 					}
 				}
 
-				// MOVE MONEY
+				// Move Money
 
 				else if (choice.equalsIgnoreCase("move") || choice.equals("2")) {
 
@@ -78,7 +80,7 @@ public class CommandLineBanking extends RegistrationProcess {
 
 					String transferType = scannerInput.next();
 
-					// MOVE WITHIN YOUR OWN ACCOUNT
+					// Move within your account
 
 					if (transferType.equals("1")) {
 
@@ -86,7 +88,7 @@ public class CommandLineBanking extends RegistrationProcess {
 
 						String moveTo = scannerInput.next();
 
-						// TRANSFER TO CHEQUINGS ACCOUNT
+						// Transfer to Chequings 
 
 						if (moveTo.equalsIgnoreCase("Chequings") || moveTo.equals("1")) {
 
@@ -101,7 +103,7 @@ public class CommandLineBanking extends RegistrationProcess {
 										"You do not have sufficient funds. You will be kicked out of the session.");
 							}
 
-							// TRANSFER TO SAVINGS ACCOUNT
+							// Transfer to Savings 
 
 						} else if (moveTo.equalsIgnoreCase("Savings") || moveTo.equals("2")) {
 
@@ -119,7 +121,7 @@ public class CommandLineBanking extends RegistrationProcess {
 						}
 
 					}
-					// TRANSFER TO GBC CLIENT - TO BE CLEANED UP
+					// Transfer to GBC Client (****clean up****)
 
 					if (transferType.equals("2")) {
 
@@ -187,20 +189,18 @@ public class CommandLineBanking extends RegistrationProcess {
 
 					}
 
-					// TRANSFER TO ANOTHER USER IN ANY BANKING SYSTEM
-					// To implement: Actually sending an email
+					// Transfer to a user, bank is irrelevant. If the email does not exist, it is the senders error (no callback).
 
 					if (transferType.equals("3")) {
 
 						accountChoice(); // Text prompt to select account Type
 						String moveTo = scannerInput.next();
 
-						// TRANSFER TO USER CHEQUINGS
+						// Transfer from Chequings
 
 						if (moveTo.equalsIgnoreCase("Chequings") || moveTo.equals("1")) {
 
-							System.out
-									.print("Please enter the email address of the person you'd like to transfer to: ");
+							System.out.print("Please enter the email address of the person you'd like to transfer to: ");
 							String transferUser = scannerInput.next();
 							System.out.print("Please enter the amount you'd like to transfer: $");
 							float transferAmount = scannerInput.nextFloat();
@@ -221,7 +221,7 @@ public class CommandLineBanking extends RegistrationProcess {
 
 						}
 
-						// TRANSFER TO USER SAVINGS
+						// Transfer from Savings 
 
 						if (moveTo.equalsIgnoreCase("Savings") || moveTo.equals("2")) {
 

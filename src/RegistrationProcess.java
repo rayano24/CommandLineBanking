@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class RegistrationProcess extends Cipher {
+public class RegistrationProcess extends TextPrompts {
 
 	public RegistrationProcess(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
@@ -17,13 +17,10 @@ public class RegistrationProcess extends Cipher {
 		Scanner scannerInput = new Scanner(System.in);
 		String initialInput = scannerInput.next();
 
-		// SIGN UP PROCESS INITITATES
+		// Sign up Process
 		if (initialInput.equals("2")) {
-
-			// WELCOME PROMPT
-
-			System.out.println(
-					"Welcome to CommandLineBanking™, we're glad that you're here to test drive the future of banking. ");
+			
+			System.out.println("Welcome to CommandLineBanking™, we're glad that you're here to test drive the future of banking. ");
 			System.out.println("For guidelines on selecting a password, please type help onto the console.\n"
 					+ "Alternatively, press any other key continue to registration.");
 
@@ -34,7 +31,6 @@ public class RegistrationProcess extends Cipher {
 			} else {
 			}
 
-			// REGISTRATION
 			System.out.println("Please enter the email associated with your account and a desired password.");
 			System.out.print("Email Address: ");
 			String emailAddress = scannerInput.next();
@@ -44,8 +40,7 @@ public class RegistrationProcess extends Cipher {
 			// STARTING BALANCE + USER ACCOUNTS
 			if (passwordAuthenticator(userPassword) == true) {
 				createAccount(emailAddress, userPassword);
-				System.out.println(
-						"Thank you for signing up for CommandLineBanking. Your chequings account has been credited with $100. Be sure to keep your new credentials in a safe place.");
+				System.out.println("Thank you for signing up for CommandLineBanking. Your chequings account has been credited with $100. Be sure to keep your new credentials in a safe place.");
 			} else {
 				System.out.println("You have entered an invalid password");
 				System.exit(1);
