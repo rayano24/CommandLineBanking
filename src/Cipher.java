@@ -2,7 +2,7 @@
 // Currently basic caesar cipher, to be updated. this only exists because I already have the code on hand.
 // Will be implemented when the project makes use of file I/O
 
-public class Cipher extends ReqCheck {
+public class Cipher extends TextPrompts {
 
 	public Cipher(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);

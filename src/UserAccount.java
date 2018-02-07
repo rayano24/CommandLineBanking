@@ -74,11 +74,17 @@ public class UserAccount {
 	protected void transfer(String accountType, float amount, UserAccount receiver) {
 		if (accountType.equals("Chequings")) {
 			this.setChequingsBalance(this.getChequingsBalance() - amount);
-			receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
+			if (receiver == null) {
+			} else {
+				receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
+			}
 
 		} else if (accountType.equals("Savings")) {
 			this.setSavingsBalance(this.getSavingsBalance() - amount);
-			receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
+			if (receiver == null) {
+			} else {
+				receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
+			}
 
 		}
 
