@@ -7,7 +7,6 @@ public class CommandLineBanking extends RegistrationProcess {
 
 	public CommandLineBanking(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String args[]) {

@@ -1,9 +1,8 @@
 
-public class TextPrompts extends Cipher {
+public class TextPrompts extends ReqCheck {
 
 	public TextPrompts(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void accountChoice() { 	

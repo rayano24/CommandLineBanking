@@ -4,7 +4,6 @@ public class RegistrationProcess extends TextPrompts {
 
 	public RegistrationProcess(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
-		// TODO Auto-generated constructor stub
 	}
 
 	protected static void RegistrationPrompt() {

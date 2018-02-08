@@ -3,7 +3,6 @@ public class ReqCheck extends UserAccount  {
 
 	public ReqCheck(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
-		// TODO Auto-generated constructor stub
 	}
 
 	protected static boolean passwordAuthenticator(String password) {
