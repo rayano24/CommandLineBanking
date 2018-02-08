@@ -1,3 +1,6 @@
+// The following class will be cleaned up
+// It is a little messy/difficult to read in its current state
+
 import java.util.Scanner;
 
 public class CommandLineBanking extends RegistrationProcess {
@@ -11,7 +14,7 @@ public class CommandLineBanking extends RegistrationProcess {
 
 		while (true) {
 
-			RegistrationPrompt(); // Sign in + Sign Out Option 
+			RegistrationPrompt(); // Sign in + Sign Out Option
 
 			@SuppressWarnings("resource")
 			Scanner scannerInput = new Scanner(System.in);
@@ -23,10 +26,12 @@ public class CommandLineBanking extends RegistrationProcess {
 
 			// Processing user input
 			try {
-			if ((accountsHM.get(email).getPassword().equals(password) && email.equalsIgnoreCase((accountsHM.get(email)).getEmail()) == false)) {
-				System.out.println("You have entered an invalid password.");
-				continue;
-			}  } catch (Exception e) {
+				if (((accountsHM.get(email).getPassword().equals(password)
+						&& email.equalsIgnoreCase((accountsHM.get(email)).getEmail())) == false)) {
+					System.out.println("You have entered an invalid password. Please try again.\n");
+					continue;
+				}
+			} catch (Exception e) {
 				System.out.println("The account does not exist.");
 				continue;
 			}
@@ -41,7 +46,7 @@ public class CommandLineBanking extends RegistrationProcess {
 
 				String choice = scannerInput.next();
 
-				// Balance 
+				// Balance
 
 				if (choice.equalsIgnoreCase("Balance") || choice.equals("1")) {
 
@@ -64,7 +69,7 @@ public class CommandLineBanking extends RegistrationProcess {
 						System.out.println("Thank you for banking with us.");
 
 					} else {
-						System.out.println("Invalid input. You will be kicked out of the session");
+						System.out.println("The option you selected is not valid.");
 						continue;
 					}
 				}
@@ -86,36 +91,34 @@ public class CommandLineBanking extends RegistrationProcess {
 
 						accountChoice(); // Text prompt to select account Type
 
-						String moveTo = scannerInput.next();
+						String moveFrom = scannerInput.next();
 
-						// Transfer to Chequings 
+						// Transfer to Chequings
 
-						if (moveTo.equalsIgnoreCase("Chequings") || moveTo.equals("1")) {
+						if (moveFrom.equalsIgnoreCase("Chequings") || moveFrom.equals("1")) {
 
 							System.out.print("Please enter the amount you'd like to transfer: $");
 							float transferAmount = scannerInput.nextFloat();
 
-							if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
-								accountsHM.get(email).moveTo("chequings", transferAmount);
+							if (transferAmount <= accountsHM.get(email).getChequingsBalance()) {
+								accountsHM.get(email).moveFrom("Chequings", transferAmount);
 
 							} else {
-								System.out.println(
-										"You do not have sufficient funds. You will be kicked out of the session.");
+								System.out.println("You do not have sufficient funds.");
 							}
 
-							// Transfer to Savings 
+							// Transfer to Savings
 
-						} else if (moveTo.equalsIgnoreCase("Savings") || moveTo.equals("2")) {
+						} else if (moveFrom.equalsIgnoreCase("Savings") || moveFrom.equals("2")) {
 
 							System.out.print("Please enter the amount you'd like to transfer:");
 							float transferAmount = scannerInput.nextFloat();
 
-							if (transferAmount <= accountsHM.get(email).getChequingsBalance()) {
-								accountsHM.get(email).moveTo("chequings", transferAmount);
+							if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
+								accountsHM.get(email).moveFrom("Savings", transferAmount);
 
 							} else {
-								System.out.println(
-										"You do not have sufficient funds. You will be kicked out of the session.");
+								System.out.println("You do not have sufficient funds.");
 							}
 
 						}
@@ -189,18 +192,20 @@ public class CommandLineBanking extends RegistrationProcess {
 
 					}
 
-					// Transfer to a user, bank is irrelevant. If the email does not exist, it is the senders error (no callback).
+					// Transfer to a user, bank is irrelevant. If the email does not exist, it is
+					// the senders error (no callback).
 
 					if (transferType.equals("3")) {
 
 						accountChoice(); // Text prompt to select account Type
-						String moveTo = scannerInput.next();
+						String moveFrom = scannerInput.next();
 
 						// Transfer from Chequings
 
-						if (moveTo.equalsIgnoreCase("Chequings") || moveTo.equals("1")) {
+						if (moveFrom.equalsIgnoreCase("Chequings") || moveFrom.equals("1")) {
 
-							System.out.print("Please enter the email address of the person you'd like to transfer to: ");
+							System.out
+									.print("Please enter the email address of the person you'd like to transfer to: ");
 							String transferUser = scannerInput.next();
 							System.out.print("Please enter the amount you'd like to transfer: $");
 							float transferAmount = scannerInput.nextFloat();
@@ -216,29 +221,21 @@ public class CommandLineBanking extends RegistrationProcess {
 
 							System.out.println("========TRASNFER RECEIPT========");
 							System.out.println("===== " + timeStamp + " =====");
-							System.out.println("You transferred $ " + transferAmount + " to "
-									+ accountsHM.get(transferUser).getEmail() + ".");
+							System.out.println("You transferred $ " + transferAmount + " to " + transferUser + ".");
 
 						}
 
-						// Transfer from Savings 
+						// Transfer from Savings
 
-						if (moveTo.equalsIgnoreCase("Savings") || moveTo.equals("2")) {
+						if (moveFrom.equalsIgnoreCase("Savings") || moveFrom.equals("2")) {
 
-							System.out
-									.print("Please enter the email address of the person you'd like to transfer to: ");
+							System.out.print("Please enter the email address of the person you'd like to transfer to: ");
 							String transferUser = scannerInput.next();
-							if (accountsHM.get(transferUser) == null) {
-								createAccount(transferUser, null);
-							} else {
-
-							}
-
 							System.out.print("Please enter the amount you'd like to transfer: $");
 							float transferAmount = scannerInput.nextFloat();
 
 							if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
-								accountsHM.get(email).transfer("Savings", transferAmount, accountsHM.get(transferUser));
+								accountsHM.get(email).transfer("Savings", transferAmount, null);
 
 							} else {
 								System.out.println("You do not have sufficient funds.");
@@ -247,12 +244,9 @@ public class CommandLineBanking extends RegistrationProcess {
 
 							System.out.println("========TRASNFER RECEIPT========");
 							System.out.println("===== " + timeStamp + " =====");
-							System.out.println("You transferred $ " + transferAmount + " to "
-									+ accountsHM.get(transferUser).getEmail() + ".");
+							System.out.println("You transferred $ " + transferAmount + " to " + transferUser + ".");
 						}
-
 					}
-
 				}
 
 				else if (choice.equalsIgnoreCase("Sign Out") || choice.equals("3")) {
@@ -260,7 +254,7 @@ public class CommandLineBanking extends RegistrationProcess {
 				}
 
 				else {
-					System.out.println("Invalid input.");
+					System.out.println("The option you selected is not valid.");
 					continue;
 				}
 			}

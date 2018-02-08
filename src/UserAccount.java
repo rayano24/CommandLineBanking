@@ -58,13 +58,13 @@ public class UserAccount {
 
 	// Facilitates transfers within account
 
-	protected void moveTo(String accountType, float amount) {
+	protected void moveFrom(String accountType, float amount) {
 		if (accountType.equalsIgnoreCase("Savings")) {
-			this.setSavingsBalance(this.getSavingsBalance() + amount);
-			this.setChequingsBalance(this.getChequingsBalance() - amount);
-		} else if (accountType.equalsIgnoreCase("Chequings")) {
-			this.setChequingsBalance(this.getChequingsBalance() + amount);
 			this.setSavingsBalance(this.getSavingsBalance() - amount);
+			this.setChequingsBalance(this.getChequingsBalance() + amount);
+		} else if (accountType.equalsIgnoreCase("Chequings")) {
+			this.setChequingsBalance(this.getChequingsBalance() - amount);
+			this.setSavingsBalance(this.getSavingsBalance() + amount);
 		}
 		System.out.print(timeStamp + "\nTransaction Details: \nChequings Balance: $" + this.getChequingsBalance()
 				+ "\nSavings Balance: $" + this.getSavingsBalance() + "\nThank you for banking with us.\n");
@@ -76,16 +76,14 @@ public class UserAccount {
 		if (accountType.equals("Chequings")) {
 			this.setChequingsBalance(this.getChequingsBalance() - amount);
 			if (receiver == null) { // For email transfers since the user is not a GBC client
-			} else 
-			{
+			} else {
 				receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
 			}
 
 		} else if (accountType.equals("Savings")) {
 			this.setSavingsBalance(this.getSavingsBalance() - amount);
 			if (receiver == null) { // For email transfers since the user is not a GBC client
-			} else 
-			{
+			} else {
 				receiver.setChequingsBalance((receiver.getChequingsBalance() + amount));
 			}
 
