@@ -22,14 +22,14 @@ public class CommandLineBanking extends RegistrationProcess {
 			Scanner scannerInput = new Scanner(System.in);
 			System.out.println("Welcome to CommandLineBanking");
 			System.out.print("Email: ");
-			String email = scannerInput.next();
+			String email = scannerInput.next().toLowerCase();
 			System.out.print("Password: ");
 			String password = scannerInput.next();
 
 			// Processing user input
 			try {
 				if (((accountsHM.get(email).getPassword().equals(password)
-						&& email.equalsIgnoreCase((accountsHM.get(email)).getEmail())) == false)) {
+						&& accountsHM.get(email).getEmail().equalsIgnoreCase(email)) == false)) {
 					System.out.println("You have entered an invalid password. Please try again.");
 					continue;
 				}
@@ -152,7 +152,7 @@ public class CommandLineBanking extends RegistrationProcess {
 
 								System.out.print(
 										"Please enter the email address of the person you'd like to transfer to: ");
-								String transferUser = scannerInput.next();
+								String transferUser = scannerInput.next().toLowerCase();
 								if (accountsHM.get(transferUser) == null) {
 									System.out.println("The email you provided is not a GBC client.");
 									continue;
@@ -163,8 +163,7 @@ public class CommandLineBanking extends RegistrationProcess {
 								float transferAmount = scannerInput.nextFloat();
 
 								if (transferAmount <= accountsHM.get(email).getChequingsBalance()) {
-									accountsHM.get(email).transfer("Chequings", transferAmount,
-											accountsHM.get(transferUser));
+									accountsHM.get(email).transfer("Chequings", transferAmount, accountsHM.get(transferUser));
 									System.out.println(accountsHM.get(transferUser).getEmail() + ".");
 									break;
 
@@ -183,7 +182,7 @@ public class CommandLineBanking extends RegistrationProcess {
 
 								System.out.print(
 										"Please enter the email address of the person you'd like to transfer to: ");
-								String transferUser = scannerInput.next();
+								String transferUser = scannerInput.next().toLowerCase();
 								if (accountsHM.get(transferUser) == null) {
 									System.out.println("The email you provided is not a GBC client.");
 									continue;

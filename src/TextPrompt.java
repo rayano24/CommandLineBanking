@@ -1,12 +1,14 @@
 
-public class TextPrompts extends ReqCheck {
+public class TextPrompt extends ReqCheck {
 
+
+	public TextPrompt(String email, String password, float chequingsBalance, float savingsBalance) {
+		super(email, password, chequingsBalance, savingsBalance);
+	}
 
 	private static final long serialVersionUID = 4738179076343146842L;
 
-	public TextPrompts(String email, String password, float chequingsBalance, float savingsBalance) {
-		super(email, password, chequingsBalance, savingsBalance);
-	}
+	
 
 	public static void accountChoice() { 	
 		System.out.println("Select an account to move money from:");

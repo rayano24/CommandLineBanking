@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
-public class RegistrationProcess extends TextPrompts {
-
-	private static final long serialVersionUID = -7876473206806408458L;
+public class RegistrationProcess extends TextPrompt {
 
 	public RegistrationProcess(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
 	}
+
+	private static final long serialVersionUID = -7876473206806408458L;
+
 
 	protected static void RegistrationPrompt() {
 

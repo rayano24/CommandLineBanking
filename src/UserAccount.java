@@ -88,7 +88,7 @@ public class UserAccount implements Serializable {
 	}
 
 	protected static void createAccount(String email, String password) {
-		accountsHM.put(email, new UserAccount(email, password, 100, 0));
+		accountsHM.put(email.toLowerCase(), new UserAccount(email.toLowerCase(), password, 100, 0));
 		serialize();
 	}
 
