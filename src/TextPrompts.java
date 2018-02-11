@@ -1,6 +1,9 @@
 
 public class TextPrompts extends ReqCheck {
 
+
+	private static final long serialVersionUID = 4738179076343146842L;
+
 	public TextPrompts(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
 	}

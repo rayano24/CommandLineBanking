@@ -1,9 +1,11 @@
+
 // The following class will be cleaned up
 // It is a little messy/difficult to read in its current state
-
 import java.util.Scanner;
 
 public class CommandLineBanking extends RegistrationProcess {
+
+	private static final long serialVersionUID = 6539416002176179079L;
 
 	public CommandLineBanking(String email, String password, float chequingsBalance, float savingsBalance) {
 		super(email, password, chequingsBalance, savingsBalance);
@@ -14,6 +16,7 @@ public class CommandLineBanking extends RegistrationProcess {
 		while (true) {
 
 			RegistrationPrompt(); // Sign in + Sign Out Option
+			deserialize();
 
 			@SuppressWarnings("resource")
 			Scanner scannerInput = new Scanner(System.in);
@@ -27,7 +30,7 @@ public class CommandLineBanking extends RegistrationProcess {
 			try {
 				if (((accountsHM.get(email).getPassword().equals(password)
 						&& email.equalsIgnoreCase((accountsHM.get(email)).getEmail())) == false)) {
-					System.out.println("You have entered an invalid password. Please try again.\n");
+					System.out.println("You have entered an invalid password. Please try again.");
 					continue;
 				}
 			} catch (Exception e) {
@@ -49,27 +52,29 @@ public class CommandLineBanking extends RegistrationProcess {
 
 				if (choice.equalsIgnoreCase("Balance") || choice.equals("1")) {
 
-					System.out.println("Please select an option:");
-					System.out.println("1. Chequings account balance");
-					System.out.println("2. Savings account balance");
+					while (true) {
 
-					String accountType = scannerInput.next();
+						System.out.println("Please select an option:");
+						System.out.println("1. Chequings account balance");
+						System.out.println("2. Savings account balance");
+						System.out.println("3. Back");
 
-					if (accountType.equalsIgnoreCase("Chequings") || accountType.equals("1")) {
-						System.out.println("As of " + timeStamp + ", your chequings account balance (ID: "
-								+ accountsHM.get(email).getEmail() + ") is: $"
-								+ accountsHM.get(email).getChequingsBalance() + ".");
-						System.out.println("Thank you for banking with us.");
+						String accountType = scannerInput.next();
 
-					} else if (accountType.equalsIgnoreCase("Savings") || accountType.equals("2")) {
-						System.out.println("As of " + timeStamp + ", your savings account balance (ID: "
-								+ accountsHM.get(email).getEmail() + ") is: $"
-								+ accountsHM.get(email).getSavingsBalance() + ".");
-						System.out.println("Thank you for banking with us.");
+						if (accountType.equalsIgnoreCase("Chequings") || accountType.equals("1")) {
+							accountsHM.get(email).getBalance("chequings");
+							break;
 
-					} else {
-						System.out.println("The option you selected is not valid.");
-						continue;
+						} else if (accountType.equalsIgnoreCase("Savings") || accountType.equals("2")) {
+							accountsHM.get(email).getBalance("savings");
+							break;
+
+						} else if (accountType.equals("3")) {
+							break;
+						} else {
+							System.out.println("The option you selected is not valid. Please try again");
+							continue;
+						}
 					}
 				}
 
@@ -78,9 +83,10 @@ public class CommandLineBanking extends RegistrationProcess {
 				else if (choice.equalsIgnoreCase("move") || choice.equals("2")) {
 
 					System.out.println("Please select an option:");
-					System.out.println("1. Your own GBC account.");
-					System.out.println("2. Another GBC Client.");
-					System.out.println("3. E-Mail Money Transfer .");
+					System.out.println("1. Your own GBC account");
+					System.out.println("2. Another GBC Client");
+					System.out.println("3. E-Mail Money Transfer");
+					System.out.println("4. Back");
 
 					String transferType = scannerInput.next();
 
@@ -96,28 +102,38 @@ public class CommandLineBanking extends RegistrationProcess {
 
 						if (moveFrom.equalsIgnoreCase("Chequings") || moveFrom.equals("1")) {
 
-							System.out.print("Please enter the amount you'd like to transfer: $");
-							float transferAmount = scannerInput.nextFloat();
+							while (true) {
 
-							if (transferAmount <= accountsHM.get(email).getChequingsBalance()) {
-								accountsHM.get(email).moveFrom("Chequings", transferAmount);
+								System.out.print("Please enter the amount you'd like to transfer: $");
+								float transferAmount = scannerInput.nextFloat();
 
-							} else {
-								System.out.println("You do not have sufficient funds.");
+								if (transferAmount <= accountsHM.get(email).getChequingsBalance()) {
+									accountsHM.get(email).moveFrom("Chequings", transferAmount);
+									break;
+
+								} else {
+									System.out.println("You do not have sufficient funds.");
+									continue;
+								}
 							}
 
 							// Transfer to Savings
 
 						} else if (moveFrom.equalsIgnoreCase("Savings") || moveFrom.equals("2")) {
 
-							System.out.print("Please enter the amount you'd like to transfer:");
-							float transferAmount = scannerInput.nextFloat();
+							while (true) {
 
-							if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
-								accountsHM.get(email).moveFrom("Savings", transferAmount);
+								System.out.print("Please enter the amount you'd like to transfer:");
+								float transferAmount = scannerInput.nextFloat();
 
-							} else {
-								System.out.println("You do not have sufficient funds.");
+								if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
+									accountsHM.get(email).moveFrom("Savings", transferAmount);
+									break;
+
+								} else {
+									System.out.println("You do not have sufficient funds.");
+									continue;
+								}
 							}
 
 						}
@@ -132,63 +148,66 @@ public class CommandLineBanking extends RegistrationProcess {
 
 						if (moveTo.equalsIgnoreCase("Chequings") || moveTo.equals("1")) {
 
-							System.out
-									.print("Please enter the email address of the person you'd like to transfer to: ");
-							String transferUser = scannerInput.next();
-							if (accountsHM.get(transferUser) == null) {
-								System.out.println("The email you provided is not a GBC client.");
-								continue;
-							} else {
+							while (true) {
+
+								System.out.print(
+										"Please enter the email address of the person you'd like to transfer to: ");
+								String transferUser = scannerInput.next();
+								if (accountsHM.get(transferUser) == null) {
+									System.out.println("The email you provided is not a GBC client.");
+									continue;
+								} else {
+
+								}
+								System.out.print("Please enter the amount you'd like to transfer: $");
+								float transferAmount = scannerInput.nextFloat();
+
+								if (transferAmount <= accountsHM.get(email).getChequingsBalance()) {
+									accountsHM.get(email).transfer("Chequings", transferAmount,
+											accountsHM.get(transferUser));
+									System.out.println(accountsHM.get(transferUser).getEmail() + ".");
+									break;
+
+								} else {
+									System.out.println("You do not have sufficient funds.");
+									continue;
+								}
 
 							}
-							System.out.print("Please enter the amount you'd like to transfer: $");
-							float transferAmount = scannerInput.nextFloat();
-
-							if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
-								accountsHM.get(email).transfer("Savings", transferAmount, accountsHM.get(transferUser));
-
-							} else {
-								System.out.println("You do not have sufficient funds.");
-								continue;
-							}
-
-							System.out.println("========TRASNFER RECEIPT========");
-							System.out.println("===== " + timeStamp + " =====");
-							System.out.println("You transferred $ " + transferAmount + " to "
-									+ accountsHM.get(transferUser).getEmail() + ".");
 
 						}
 
 						if (moveTo.equalsIgnoreCase("Savings") || moveTo.equals("2")) {
 
-							System.out
-									.print("Please enter the email address of the person you'd like to transfer to: ");
-							String transferUser = scannerInput.next();
-							if (accountsHM.get(transferUser) == null) {
-								System.out.println("The email you provided is not a GBC client.");
-								continue;
-							} else {
+							while (true) {
+
+								System.out.print(
+										"Please enter the email address of the person you'd like to transfer to: ");
+								String transferUser = scannerInput.next();
+								if (accountsHM.get(transferUser) == null) {
+									System.out.println("The email you provided is not a GBC client.");
+									continue;
+								} else {
+
+								}
+
+								System.out.print("Please enter the amount you'd like to transfer: $");
+								float transferAmount = scannerInput.nextFloat();
+
+								if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
+									accountsHM.get(email).transfer("Savings", transferAmount,
+											accountsHM.get(transferUser));
+									System.out.println(accountsHM.get(transferUser).getEmail() + ".");
+									break;
+
+								} else {
+									System.out.println("You do not have sufficient funds.");
+									continue;
+								}
 
 							}
-
-							System.out.print("Please enter the amount you'd like to transfer: $");
-							float transferAmount = scannerInput.nextFloat();
-
-							if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
-								accountsHM.get(email).transfer("Savings", transferAmount, accountsHM.get(transferUser));
-
-							} else {
-								System.out.println("You do not have sufficient funds.");
-								continue;
-							}
-
-							System.out.println("========TRASNFER RECEIPT========");
-							System.out.println("===== " + timeStamp + " =====");
-							System.out.println("You transferred $ " + transferAmount + " to "
-									+ accountsHM.get(transferUser).getEmail() + ".");
 
 						}
-
 					}
 
 					// Transfer to a user, bank is irrelevant. If the email does not exist, it is
@@ -203,48 +222,54 @@ public class CommandLineBanking extends RegistrationProcess {
 
 						if (moveFrom.equalsIgnoreCase("Chequings") || moveFrom.equals("1")) {
 
-							System.out
-									.print("Please enter the email address of the person you'd like to transfer to: ");
-							String transferUser = scannerInput.next();
-							System.out.print("Please enter the amount you'd like to transfer: $");
-							float transferAmount = scannerInput.nextFloat();
+							while (true) {
 
-							// userTransferChequings(transferAmount);
-							if (transferAmount <= accountsHM.get(email).getChequingsBalance()) {
-								accountsHM.get(email).transfer("Chequings", transferAmount, null);
+								System.out.print(
+										"Please enter the email address of the person you'd like to transfer to: ");
+								String transferUser = scannerInput.next();
+								System.out.print("Please enter the amount you'd like to transfer: $");
+								float transferAmount = scannerInput.nextFloat();
 
-							} else {
-								System.out.println("You do not have sufficient funds.");
-								continue;
+								// userTransferChequings(transferAmount);
+								if (transferAmount <= accountsHM.get(email).getChequingsBalance()) {
+									accountsHM.get(email).transfer("Chequings", transferAmount, null);
+									System.out.println(transferUser + ".");
+									break;
+
+								} else {
+									System.out.println("You do not have sufficient funds.");
+									continue;
+								}
+
 							}
-
-							System.out.println("========TRASNFER RECEIPT========");
-							System.out.println("===== " + timeStamp + " =====");
-							System.out.println("You transferred $ " + transferAmount + " to " + transferUser + ".");
-
 						}
 
 						// Transfer from Savings
 
 						if (moveFrom.equalsIgnoreCase("Savings") || moveFrom.equals("2")) {
 
-							System.out.print("Please enter the email address of the person you'd like to transfer to: ");
-							String transferUser = scannerInput.next();
-							System.out.print("Please enter the amount you'd like to transfer: $");
-							float transferAmount = scannerInput.nextFloat();
+							while (true) {
 
-							if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
-								accountsHM.get(email).transfer("Savings", transferAmount, null);
+								System.out.print(
+										"Please enter the email address of the person you'd like to transfer to: ");
+								String transferUser = scannerInput.next();
+								System.out.print("Please enter the amount you'd like to transfer: $");
+								float transferAmount = scannerInput.nextFloat();
 
-							} else {
-								System.out.println("You do not have sufficient funds.");
-								continue;
+								if (transferAmount <= accountsHM.get(email).getSavingsBalance()) {
+									accountsHM.get(email).transfer("Savings", transferAmount, null);
+									System.out.println(transferUser + ".");
+									break;
+
+								} else {
+									System.out.println("You do not have sufficient funds.");
+									continue;
+								}
+
 							}
-
-							System.out.println("========TRASNFER RECEIPT========");
-							System.out.println("===== " + timeStamp + " =====");
-							System.out.println("You transferred $ " + transferAmount + " to " + transferUser + ".");
 						}
+					} else if (transferType.equals("3")) {
+						break;
 					}
 				}
 
@@ -256,6 +281,7 @@ public class CommandLineBanking extends RegistrationProcess {
 					System.out.println("The option you selected is not valid.");
 					continue;
 				}
+				serialize();
 			}
 		}
 	}
