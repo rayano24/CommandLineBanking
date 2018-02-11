@@ -6,7 +6,7 @@ Extension of an ATM program.
 
 ###### To implement:
 
--~~File I/O to store user data~~
+-~~File I/O to store user data (complete)~~
 
 -General cleaning + added minor features
 
